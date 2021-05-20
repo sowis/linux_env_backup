@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [ ! -d ~/.local/share/trashbin ]; then
+    mkdir ~/.local/share/trashbin
+fi
+
+if [ ! -h ~/trashbin ]; then
+    ln -s ~/.local/share/trashbin ~/trashbin
+fi
+
+if [ $# -eq 0 ]; then
+    echo "trash [filenames]    -> move files to trashbin"
+    echo "trash -c             -> clear trashbin"
+    echo "trash -c [filenames] -> clear 'filenames' in trashbin"
+    echo "trash -s             -> show trash list"
+elif [ $# -eq 1 ]; then
+    if [ $1 == "-c" ]; then
+        rm -r ~/.local/share/trashbin/* -f
+        rm -r ~/.local/share/trashbin/.* -f 2>/dev/null
+    elif [ $1 == "-s" ]; then
+        ls -alhF ~/.local/share/trashbin
+    else
+        mv -t ~/.local/share/trashbin $1
+    fi
+else
+    if [ $1 == "-c" ]; then
+        for file in ${@:2}; do
+            rm -f -r ~/.local/share/trashbin/$file
+        done
+    else
+        mv -t ~/.local/share/trashbin $@
+    fi
+fi

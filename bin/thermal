@@ -1,0 +1,10 @@
+# CPU 온도 출력 스크립트
+# 현재 CPU온도를 보여줌
+#!/bin/bash
+
+native_temp=$(cat /sys/class/thermal/thermal_zone0/temp)
+temp_high=$(($native_temp/1000))
+temp_tmp=$(($native_temp/100))
+temp_low=$(($temp_tmp % $temp_high))
+
+echo CPU Temperature : $temp_high"."$temp_low"'C"
