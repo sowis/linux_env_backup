@@ -123,7 +123,6 @@ export LS_COLORS="di=2;91:fi=1;37:ex=01;32"
 alias python='python3'
 alias pip='pip3'
 alias rm='trash'
-export PASSWORD='parkpark1'
 
 # user PATH setting
 export PATH=$PATH:/home/jhp/bin
